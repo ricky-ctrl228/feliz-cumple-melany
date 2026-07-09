@@ -108,13 +108,12 @@
   }
   .envelope.out .card { transform: translateY(-118%); }
 
-  .card::before {
-    content: '💎';
+  .card-face {
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
-    font-size: 2.6rem;
   }
-  .card.big::before { display: none; }
+  .card.big .card-face { display: none; }
+  .gem { filter: drop-shadow(0 0 6px rgba(155,89,182,.55)); }
 
   .card.big {
     position: fixed; left: 50%; top: 50%; right: auto; bottom: auto;
@@ -142,6 +141,9 @@
   }
   @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
 
+  .balloons {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+  }
   .balloons span {
     display: inline-block; font-size: 2rem;
     animation: floaty 2.5s ease-in-out infinite;
@@ -201,8 +203,42 @@
 <div class="envelope" id="envelope">
   <div class="back"></div>
   <div class="card" id="card">
+    <div class="card-face">
+      <svg class="gem" width="46" height="46" viewBox="0 0 64 64" aria-hidden="true">
+        <polygon points="16,12 48,12 58,28 32,56 6,28" fill="#9b59b6"/>
+        <polygon points="16,12 24,28 6,28" fill="#b07cc6"/>
+        <polygon points="48,12 58,28 40,28" fill="#7d3c98"/>
+        <polygon points="16,12 48,12 40,28 24,28" fill="#c39bd3"/>
+        <polygon points="24,28 40,28 32,56" fill="#8e44ad"/>
+        <polygon points="6,28 24,28 32,56" fill="#a569bd"/>
+        <polygon points="58,28 40,28 32,56" fill="#6c3483"/>
+        <polygon points="20,15 30,15 26,24 22,24" fill="#e8daef" opacity=".7"/>
+      </svg>
+    </div>
     <div class="content">
-      <div class="balloons"><span>💎</span><span>🪷</span><span>💎</span></div>
+      <div class="balloons">
+        <span><svg class="gem" width="30" height="30" viewBox="0 0 64 64" aria-hidden="true">
+          <polygon points="16,12 48,12 58,28 32,56 6,28" fill="#9b59b6"/>
+          <polygon points="16,12 24,28 6,28" fill="#b07cc6"/>
+          <polygon points="48,12 58,28 40,28" fill="#7d3c98"/>
+          <polygon points="16,12 48,12 40,28 24,28" fill="#c39bd3"/>
+          <polygon points="24,28 40,28 32,56" fill="#8e44ad"/>
+          <polygon points="6,28 24,28 32,56" fill="#a569bd"/>
+          <polygon points="58,28 40,28 32,56" fill="#6c3483"/>
+          <polygon points="20,15 30,15 26,24 22,24" fill="#e8daef" opacity=".7"/>
+        </svg></span>
+        <span>🪷</span>
+        <span><svg class="gem" width="30" height="30" viewBox="0 0 64 64" aria-hidden="true">
+          <polygon points="16,12 48,12 58,28 32,56 6,28" fill="#9b59b6"/>
+          <polygon points="16,12 24,28 6,28" fill="#b07cc6"/>
+          <polygon points="48,12 58,28 40,28" fill="#7d3c98"/>
+          <polygon points="16,12 48,12 40,28 24,28" fill="#c39bd3"/>
+          <polygon points="24,28 40,28 32,56" fill="#8e44ad"/>
+          <polygon points="6,28 24,28 32,56" fill="#a569bd"/>
+          <polygon points="58,28 40,28 32,56" fill="#6c3483"/>
+          <polygon points="20,15 30,15 26,24 22,24" fill="#e8daef" opacity=".7"/>
+        </svg></span>
+      </div>
       <h1>¡Feliz<br>Cumpleaños!</h1>
       <p class="para" id="t-para"></p>
       <p class="mensaje" id="t-mensaje"></p>
