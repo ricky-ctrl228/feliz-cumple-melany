@@ -60,7 +60,7 @@
 
   /* ---------- Envelope ---------- */
   .envelope {
-    position: relative;
+    position: relative; z-index: 1;
     width: min(85vw, 340px); aspect-ratio: 3 / 2;
     cursor: pointer;
     filter: drop-shadow(0 12px 24px rgba(0,0,0,.45)) drop-shadow(0 0 26px rgba(255,205,130,.25));
@@ -188,9 +188,15 @@
     position: fixed; inset: 0;
     pointer-events: none; z-index: 60;
   }
+  #stars {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 0;
+  }
 </style>
 </head>
 <body>
+
+<canvas id="stars"></canvas>
 
 <div class="envelope" id="envelope">
   <div class="back"></div>
@@ -270,6 +276,94 @@ card.addEventListener('click', e => {
   e.stopPropagation();
   burst(120);
 });
+
+/* ---------- Cielo estrellado ---------- */
+const starsCanvas = document.getElementById('stars');
+const sctx = starsCanvas.getContext('2d');
+
+function drawStars() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const w = innerWidth, h = innerHeight;
+  starsCanvas.width = w * dpr;
+  starsCanvas.height = h * dpr;
+  sctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  // Las estrellas se desvanecen hacia el "amanecer" en la parte baja
+  const fade = y => Math.max(0, Math.min(1, 1 - (y / h - 0.5) * 1.8));
+  const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;
+  const TINTS = ['255,255,255', '207,224,255', '255,232,200'];
+  const tint = () => TINTS[Math.random() < .7 ? 0 : (Math.random() < .65 ? 1 : 2)];
+
+  function dot(x, y, r, a) {
+    sctx.fillStyle = 'rgba(' + tint() + ',' + a.toFixed(3) + ')';
+    sctx.beginPath();
+    sctx.arc(x, y, r, 0, Math.PI * 2);
+    sctx.fill();
+  }
+
+  // Velo de vía láctea en diagonal
+  for (let i = 0; i < 26; i++) {
+    const t = Math.random();
+    const x = t * w, y = h * (0.10 + 0.38 * t) + gauss() * h * 0.06;
+    const r = 50 + Math.random() * 110;
+    const grad = sctx.createRadialGradient(x, y, 0, x, y, r);
+    grad.addColorStop(0, 'rgba(190,175,255,0.05)');
+    grad.addColorStop(1, 'rgba(190,175,255,0)');
+    sctx.fillStyle = grad;
+    sctx.fillRect(x - r, y - r, r * 2, r * 2);
+  }
+
+  // Polvo de estrellas concentrado en la banda
+  for (let i = 0; i < 260; i++) {
+    const t = Math.random();
+    const x = t * w + gauss() * w * 0.03;
+    const y = h * (0.10 + 0.38 * t) + gauss() * h * 0.07;
+    dot(x, y, 0.3 + Math.random() * 0.5, (0.1 + Math.random() * 0.4) * fade(y));
+  }
+
+  // Campo general de estrellas
+  for (let i = 0; i < 380; i++) {
+    const x = Math.random() * w, y = Math.random() * h;
+    dot(x, y, 0.25 + Math.random() * 0.75, (0.15 + Math.random() * 0.65) * fade(y));
+  }
+
+  // Estrellas medianas con halo suave
+  for (let i = 0; i < 26; i++) {
+    const x = Math.random() * w, y = Math.random() * h * 0.75;
+    const a = (0.5 + Math.random() * 0.5) * fade(y);
+    const r = 0.9 + Math.random() * 0.7;
+    const grad = sctx.createRadialGradient(x, y, 0, x, y, r * 5);
+    grad.addColorStop(0, 'rgba(255,255,255,' + (a * 0.35).toFixed(3) + ')');
+    grad.addColorStop(1, 'rgba(255,255,255,0)');
+    sctx.fillStyle = grad;
+    sctx.fillRect(x - r * 5, y - r * 5, r * 10, r * 10);
+    dot(x, y, r, a);
+  }
+
+  // Pocas estrellas brillantes con destello en cruz
+  for (let i = 0; i < 7; i++) {
+    const x = Math.random() * w, y = Math.random() * h * 0.6;
+    const r = 1.4 + Math.random() * 0.9;
+    const glowR = r * 9;
+    const grad = sctx.createRadialGradient(x, y, 0, x, y, glowR);
+    grad.addColorStop(0, 'rgba(255,255,255,0.5)');
+    grad.addColorStop(0.3, 'rgba(220,215,255,0.12)');
+    grad.addColorStop(1, 'rgba(220,215,255,0)');
+    sctx.fillStyle = grad;
+    sctx.fillRect(x - glowR, y - glowR, glowR * 2, glowR * 2);
+    sctx.fillStyle = 'rgba(255,255,255,0.95)';
+    sctx.beginPath(); sctx.arc(x, y, r, 0, Math.PI * 2); sctx.fill();
+    sctx.strokeStyle = 'rgba(255,255,255,0.35)';
+    sctx.lineWidth = 0.8;
+    const s = glowR * 0.9;
+    sctx.beginPath();
+    sctx.moveTo(x - s, y); sctx.lineTo(x + s, y);
+    sctx.moveTo(x, y - s); sctx.lineTo(x, y + s);
+    sctx.stroke();
+  }
+}
+drawStars();
+addEventListener('resize', drawStars);
 
 /* ---------- Confeti ---------- */
 const canvas = document.getElementById('confetti');
