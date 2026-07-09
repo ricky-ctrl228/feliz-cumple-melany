@@ -17,7 +17,7 @@
   html, body { height: 100%; overflow: hidden; }
   body {
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: linear-gradient(165deg, #141432, #3b2a5d 45%, #7a4a8f 78%, #c98bb9);
+    background: linear-gradient(170deg, #0b0b22, #221a4a 40%, #3b2a5d 58%, #7a4a8f 80%, #c98bb9);
     display: flex; align-items: center; justify-content: center;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
@@ -289,73 +289,105 @@ function drawStars() {
   sctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
   // Las estrellas se desvanecen hacia el "amanecer" en la parte baja
-  const fade = y => Math.max(0, Math.min(1, 1 - (y / h - 0.5) * 1.8));
+  const fade = y => Math.max(0, Math.min(1, 1 - (y / h - 0.52) * 2));
   const gauss = () => (Math.random() + Math.random() + Math.random() - 1.5) / 1.5;
-  const TINTS = ['255,255,255', '207,224,255', '255,232,200'];
-  const tint = () => TINTS[Math.random() < .7 ? 0 : (Math.random() < .65 ? 1 : 2)];
 
-  function dot(x, y, r, a) {
-    sctx.fillStyle = 'rgba(' + tint() + ',' + a.toFixed(3) + ')';
-    sctx.beginPath();
-    sctx.arc(x, y, r, 0, Math.PI * 2);
-    sctx.fill();
-  }
+  // Trayectoria diagonal de la vía láctea
+  const bandX = t => t * w;
+  const bandY = t => h * (0.08 + 0.40 * t);
 
-  // Velo de vía láctea en diagonal
-  for (let i = 0; i < 26; i++) {
-    const t = Math.random();
-    const x = t * w, y = h * (0.10 + 0.38 * t) + gauss() * h * 0.06;
-    const r = 50 + Math.random() * 110;
+  function blob(x, y, r, rgba) {
     const grad = sctx.createRadialGradient(x, y, 0, x, y, r);
-    grad.addColorStop(0, 'rgba(190,175,255,0.05)');
-    grad.addColorStop(1, 'rgba(190,175,255,0)');
+    grad.addColorStop(0, 'rgba(' + rgba + ')');
+    grad.addColorStop(1, 'rgba(' + rgba.replace(/[\d.]+\)?$/, '0') + ')');
     sctx.fillStyle = grad;
     sctx.fillRect(x - r, y - r, r * 2, r * 2);
   }
 
-  // Polvo de estrellas concentrado en la banda
-  for (let i = 0; i < 260; i++) {
+  // 1. Resplandor ancho y tenue de la banda
+  for (let i = 0; i < 40; i++) {
     const t = Math.random();
-    const x = t * w + gauss() * w * 0.03;
-    const y = h * (0.10 + 0.38 * t) + gauss() * h * 0.07;
-    dot(x, y, 0.3 + Math.random() * 0.5, (0.1 + Math.random() * 0.4) * fade(y));
+    blob(bandX(t) + gauss() * w * 0.02, bandY(t) + gauss() * h * 0.09,
+         70 + Math.random() * 130, '180,170,220,0.03');
+  }
+  // 2. Núcleo más brillante y cálido
+  for (let i = 0; i < 30; i++) {
+    const t = Math.random();
+    blob(bandX(t), bandY(t) + gauss() * h * 0.035,
+         30 + Math.random() * 60, '235,225,235,0.045');
+  }
+  // 3. Grietas de polvo oscuro que parten el núcleo
+  for (let i = 0; i < 22; i++) {
+    const t = 0.1 + Math.random() * 0.8;
+    blob(bandX(t) + gauss() * w * 0.015, bandY(t) + gauss() * h * 0.02,
+         20 + Math.random() * 45, '12,10,28,0.1');
+  }
+  // 4. Toques tenues de nebulosa rosada
+  for (let i = 0; i < 5; i++) {
+    const t = Math.random();
+    blob(bandX(t), bandY(t) + gauss() * h * 0.05,
+         25 + Math.random() * 50, '255,160,180,0.035');
   }
 
-  // Campo general de estrellas
-  for (let i = 0; i < 380; i++) {
+  // Casi todas blancas, algunas azuladas o cálidas (como estrellas reales)
+  function starColor() {
+    const p = Math.random();
+    return p < .78 ? '255,255,255' : p < .90 ? '215,228,255' : '255,238,214';
+  }
+
+  // 5. Polvo de estrellas de la banda — miles de puntos diminutos
+  const dustN = Math.round(w * h / 900);
+  for (let i = 0; i < dustN; i++) {
+    const t = Math.random();
+    const x = bandX(t) + gauss() * w * 0.05;
+    const y = bandY(t) + gauss() * h * 0.075;
+    const a = (0.04 + Math.random() * 0.22) * fade(y);
+    if (a < 0.02) continue;
+    sctx.fillStyle = 'rgba(' + starColor() + ',' + a.toFixed(3) + ')';
+    const s = Math.random() < 0.85 ? 1 : 1.5;
+    sctx.fillRect(x, y, s, s);
+  }
+
+  // 6. Campo general — ley de potencias: muchas débiles, muy pocas brillantes
+  const fieldN = Math.round(w * h / 1400);
+  for (let i = 0; i < fieldN; i++) {
     const x = Math.random() * w, y = Math.random() * h;
-    dot(x, y, 0.25 + Math.random() * 0.75, (0.15 + Math.random() * 0.65) * fade(y));
+    const m = Math.pow(Math.random(), 3.2);
+    const r = 0.3 + m * 1.1;
+    const a = (0.06 + m * 0.85) * fade(y);
+    if (a < 0.02) continue;
+    sctx.fillStyle = 'rgba(' + starColor() + ',' + a.toFixed(3) + ')';
+    if (r < 0.7) sctx.fillRect(x, y, r * 2, r * 2);
+    else { sctx.beginPath(); sctx.arc(x, y, r, 0, Math.PI * 2); sctx.fill(); }
   }
 
-  // Estrellas medianas con halo suave
-  for (let i = 0; i < 26; i++) {
-    const x = Math.random() * w, y = Math.random() * h * 0.75;
-    const a = (0.5 + Math.random() * 0.5) * fade(y);
-    const r = 0.9 + Math.random() * 0.7;
-    const grad = sctx.createRadialGradient(x, y, 0, x, y, r * 5);
-    grad.addColorStop(0, 'rgba(255,255,255,' + (a * 0.35).toFixed(3) + ')');
-    grad.addColorStop(1, 'rgba(255,255,255,0)');
-    sctx.fillStyle = grad;
-    sctx.fillRect(x - r * 5, y - r * 5, r * 10, r * 10);
-    dot(x, y, r, a);
+  // 7. Estrellas medianas con halo tenue
+  for (let i = 0; i < 18; i++) {
+    const x = Math.random() * w, y = Math.random() * h * 0.8;
+    const a = (0.55 + Math.random() * 0.45) * fade(y);
+    if (a < 0.1) continue;
+    const r = 0.8 + Math.random() * 0.6;
+    blob(x, y, r * 4, '255,255,255,' + (a * 0.25).toFixed(3));
+    sctx.fillStyle = 'rgba(' + starColor() + ',' + a.toFixed(3) + ')';
+    sctx.beginPath(); sctx.arc(x, y, r, 0, Math.PI * 2); sctx.fill();
   }
 
-  // Pocas estrellas brillantes con destello en cruz
-  for (let i = 0; i < 7; i++) {
-    const x = Math.random() * w, y = Math.random() * h * 0.6;
-    const r = 1.4 + Math.random() * 0.9;
-    const glowR = r * 9;
+  // 8. Unas pocas brillantes con halo amplio y destello discreto
+  for (let i = 0; i < 5; i++) {
+    const x = Math.random() * w, y = Math.random() * h * 0.55;
+    const r = 1.1 + Math.random() * 0.7;
+    const glowR = r * 12;
     const grad = sctx.createRadialGradient(x, y, 0, x, y, glowR);
-    grad.addColorStop(0, 'rgba(255,255,255,0.5)');
-    grad.addColorStop(0.3, 'rgba(220,215,255,0.12)');
-    grad.addColorStop(1, 'rgba(220,215,255,0)');
+    grad.addColorStop(0, 'rgba(255,255,255,0.35)');
+    grad.addColorStop(0.25, 'rgba(225,220,255,0.08)');
+    grad.addColorStop(1, 'rgba(225,220,255,0)');
     sctx.fillStyle = grad;
     sctx.fillRect(x - glowR, y - glowR, glowR * 2, glowR * 2);
     sctx.fillStyle = 'rgba(255,255,255,0.95)';
     sctx.beginPath(); sctx.arc(x, y, r, 0, Math.PI * 2); sctx.fill();
-    sctx.strokeStyle = 'rgba(255,255,255,0.35)';
-    sctx.lineWidth = 0.8;
-    const s = glowR * 0.9;
+    sctx.strokeStyle = 'rgba(255,255,255,0.2)';
+    sctx.lineWidth = 0.6;
+    const s = glowR * 0.7;
     sctx.beginPath();
     sctx.moveTo(x - s, y); sctx.lineTo(x + s, y);
     sctx.moveTo(x, y - s); sctx.lineTo(x, y + s);
