@@ -17,11 +17,37 @@
   html, body { height: 100%; overflow: hidden; }
   body {
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: linear-gradient(160deg, #4a154b, #8e44ad 45%, #e84393);
+    background: linear-gradient(165deg, #141432, #3b2a5d 45%, #7a4a8f 78%, #c98bb9);
     display: flex; align-items: center; justify-content: center;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
   }
+
+  /* Estrellas que titilan en el fondo */
+  body::before, body::after {
+    content: '';
+    position: fixed; inset: 0;
+    pointer-events: none;
+  }
+  body::before {
+    background-image:
+      radial-gradient(2px 2px at 12% 20%, rgba(255,255,255,.9), transparent 60%),
+      radial-gradient(2px 2px at 78% 12%, rgba(255,255,255,.8), transparent 60%),
+      radial-gradient(1.5px 1.5px at 30% 68%, rgba(255,255,255,.7), transparent 60%),
+      radial-gradient(2px 2px at 88% 55%, rgba(255,235,180,.9), transparent 60%),
+      radial-gradient(1.5px 1.5px at 55% 30%, rgba(255,255,255,.75), transparent 60%);
+    animation: twinkle 3.2s ease-in-out infinite;
+  }
+  body::after {
+    background-image:
+      radial-gradient(1.5px 1.5px at 22% 45%, rgba(255,255,255,.8), transparent 60%),
+      radial-gradient(2px 2px at 65% 78%, rgba(255,235,180,.8), transparent 60%),
+      radial-gradient(1.5px 1.5px at 42% 10%, rgba(255,255,255,.7), transparent 60%),
+      radial-gradient(2px 2px at 92% 30%, rgba(255,255,255,.85), transparent 60%),
+      radial-gradient(1.5px 1.5px at 8% 84%, rgba(255,235,180,.7), transparent 60%);
+    animation: twinkle 3.2s ease-in-out 1.6s infinite;
+  }
+  @keyframes twinkle { 0%,100% { opacity: .3 } 50% { opacity: 1 } }
 
   .hint {
     position: fixed; left: 0; right: 0; bottom: 4vh;
@@ -37,22 +63,22 @@
     position: relative;
     width: min(85vw, 340px); aspect-ratio: 3 / 2;
     cursor: pointer;
-    filter: drop-shadow(0 12px 24px rgba(0,0,0,.35));
+    filter: drop-shadow(0 12px 24px rgba(0,0,0,.45)) drop-shadow(0 0 26px rgba(255,205,130,.25));
   }
   .back {
     position: absolute; inset: 0;
-    background: #b03028; border-radius: 8px;
+    background: #3a2c63; border-radius: 8px;
     z-index: 1;
   }
   .pocket {
     position: absolute; inset: 0;
-    background: #e74c3c; border-radius: 8px;
+    background: #544384; border-radius: 8px;
     clip-path: polygon(0 0, 50% 55%, 100% 0, 100% 100%, 0 100%);
     z-index: 3;
   }
   .flap {
     position: absolute; top: 0; left: 0; right: 0; height: 56%;
-    background: #d13b2c;
+    background: #473677;
     clip-path: polygon(0 0, 100% 0, 50% 100%);
     transform: perspective(700px) rotateX(0deg);
     transform-origin: top center;
@@ -60,10 +86,11 @@
     z-index: 4;
   }
   .flap::after {
-    content: '❤️';
+    content: '🪷';
     position: absolute; left: 50%; bottom: 8px;
     transform: translateX(-50%);
-    font-size: 1.7rem;
+    font-size: 1.8rem;
+    text-shadow: 0 0 14px rgba(255,215,140,.9);
   }
   .envelope.open .flap { transform: perspective(700px) rotateX(180deg); }
   .envelope.out  .flap { z-index: 0; }
@@ -74,7 +101,7 @@
   /* ---------- Card ---------- */
   .card {
     position: absolute; left: 6%; right: 6%; top: 10%; bottom: 10%;
-    background: #fffdf7; border-radius: 6px;
+    background: #fdf9ee; border-radius: 6px;
     box-shadow: 0 4px 14px rgba(0,0,0,.25);
     z-index: 2;
     transition: transform .9s cubic-bezier(.22,.61,.36,1);
@@ -82,7 +109,7 @@
   .envelope.out .card { transform: translateY(-118%); }
 
   .card::before {
-    content: '🎁';
+    content: '✨';
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
     font-size: 2.6rem;
@@ -97,7 +124,7 @@
     transition: none;
     animation: popIn .45s ease-out both;
     border-radius: 18px;
-    border-top: 10px solid #f9c74f;
+    border-top: 10px solid #d4af37;
     z-index: 40;
     cursor: pointer;
   }
@@ -125,26 +152,26 @@
 
   h1 {
     font-family: 'Segoe Script', 'Brush Script MT', cursive;
-    color: #e63946; font-size: 2.3rem; line-height: 1.15;
+    color: #7a5aa8; font-size: 2.3rem; line-height: 1.15;
     margin: 14px 0 18px;
   }
-  .para    { font-weight: 700; color: #333; font-size: 1.15rem; margin-bottom: 14px; }
-  .mensaje { color: #555; line-height: 1.55; font-size: 1rem; margin-bottom: 18px; }
-  .de      { font-style: italic; color: #8a8a8a; font-size: .95rem; }
+  .para    { font-weight: 700; color: #46395f; font-size: 1.15rem; margin-bottom: 14px; }
+  .mensaje { color: #5b5370; line-height: 1.55; font-size: 1rem; margin-bottom: 18px; }
+  .de      { font-style: italic; color: #9c92b0; font-size: .95rem; }
 
   .ps-cue {
     margin-top: 18px;
-    color: #e63946; font-weight: 700; font-size: 1rem;
+    color: #b8860b; font-weight: 700; font-size: 1rem;
     animation: bob 1.5s ease-in-out infinite;
   }
   .ps-btn {
     margin-top: 8px;
     padding: 10px 26px;
     border: none; border-radius: 999px;
-    background: #f9c74f; color: #7a4a00;
+    background: #e3c06a; color: #5b4300;
     font-family: inherit; font-weight: 700; font-size: 1rem;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(230,57,70,.35);
+    box-shadow: 0 2px 10px rgba(212,175,55,.5);
     animation: pulse 1.6s ease-in-out infinite;
   }
   @keyframes pulse { 0%,100% { transform: scale(1) } 50% { transform: scale(1.08) } }
@@ -152,8 +179,8 @@
     display: none;
     margin-top: 18px;
     padding: 12px 16px;
-    background: #fff3d6; border-radius: 10px;
-    color: #6b4a00; font-size: .95rem; line-height: 1.5;
+    background: #f3edfa; border-radius: 10px;
+    color: #55447a; font-size: .95rem; line-height: 1.5;
   }
   .ps.show { display: block; animation: fadeIn .5s both; }
 
@@ -169,7 +196,7 @@
   <div class="back"></div>
   <div class="card" id="card">
     <div class="content">
-      <div class="balloons"><span>🎈</span><span>🎈</span><span>🎈</span></div>
+      <div class="balloons"><span>✨</span><span>🪷</span><span>✨</span></div>
       <h1>¡Feliz<br>Cumpleaños!</h1>
       <p class="para" id="t-para"></p>
       <p class="mensaje" id="t-mensaje"></p>
@@ -247,7 +274,7 @@ card.addEventListener('click', e => {
 /* ---------- Confeti ---------- */
 const canvas = document.getElementById('confetti');
 const ctx = canvas.getContext('2d');
-const COLORS = ['#f94144','#f3722c','#f9c74f','#90be6d','#43aa8b','#577590','#f48fb1'];
+const COLORS = ['#ffd700','#f3e5ab','#e8b4d8','#b39ddb','#ffffff','#d4af37','#f7c8dc'];
 let pieces = [];
 
 function resize() { canvas.width = innerWidth; canvas.height = innerHeight; }
