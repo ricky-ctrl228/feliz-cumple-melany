@@ -126,11 +126,11 @@
     filter: drop-shadow(0 0 8px rgba(220,200,255,.45));
     animation: flyBob ease-in-out infinite;
   }
-  .cat1 { top: 12%; opacity: .75; animation-duration: 34s; animation-delay: -12s; }
+  .cat1 { top: 12%; opacity: .9; animation-duration: 34s; animation-delay: -12s; }
   .cat1 svg { width: 72px; animation-duration: 3.4s; }
-  .cat2 { top: 32%; opacity: .45; animation-duration: 52s; animation-delay: -35s; animation-name: flyXrev; }
+  .cat2 { top: 32%; opacity: .7; animation-duration: 52s; animation-delay: -35s; animation-name: flyXrev; }
   .cat2 svg { width: 44px; animation-duration: 2.9s; animation-name: flyBobRev; }
-  .cat3 { top: 66%; opacity: .6; animation-duration: 27s; animation-delay: -5s; }
+  .cat3 { top: 66%; opacity: .85; animation-duration: 27s; animation-delay: -5s; }
   .cat3 svg { width: 56px; animation-duration: 3.8s; }
   @keyframes flyX    { from { transform: translateX(-15vw) } to { transform: translateX(110vw) } }
   @keyframes flyXrev { from { transform: translateX(110vw) } to { transform: translateX(-15vw) } }
@@ -230,16 +230,32 @@
 
 <div class="cat cat1" aria-hidden="true">
   <svg viewBox="0 0 120 60">
-    <g fill="#efe4ff">
-      <ellipse cx="55" cy="32" rx="28" ry="11"/>
-      <circle cx="88" cy="26" r="11"/>
-      <polygon points="79,20 82,6 89,16"/>
-      <polygon points="89,16 96,7 98,20"/>
-      <ellipse cx="103" cy="34" rx="10" ry="3.6"/>
-      <ellipse cx="30" cy="41" rx="10" ry="3.6"/>
+    <defs><clipPath id="body1"><ellipse cx="52" cy="33" rx="27" ry="12"/></clipPath></defs>
+    <path d="M27 28 Q14 22 8 7" stroke="#f5b971" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <ellipse cx="94" cy="40" rx="10" ry="3.4" fill="#f5b971"/>
+    <ellipse cx="28" cy="43" rx="9" ry="3.4" fill="#d68a3f"/>
+    <ellipse cx="52" cy="33" rx="27" ry="12" fill="#f5b971"/>
+    <g clip-path="url(#body1)">
+      <ellipse cx="52" cy="41" rx="18" ry="6" fill="#fbe3c4"/>
+      <ellipse cx="40" cy="26" rx="3" ry="8" fill="#d68a3f"/>
+      <ellipse cx="51" cy="25" rx="3" ry="9" fill="#d68a3f"/>
+      <ellipse cx="62" cy="26" rx="3" ry="8" fill="#d68a3f"/>
     </g>
-    <path d="M29 28 Q14 22 10 8" stroke="#efe4ff" stroke-width="5" stroke-linecap="round" fill="none"/>
-    <path d="M84 25 Q87 28 90 25" stroke="#5a4a7e" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+    <polygon points="76,17 79,3 87,13" fill="#f5b971"/>
+    <polygon points="88,13 96,4 99,17" fill="#f5b971"/>
+    <polygon points="78,14 80,6 85,12" fill="#f2a6a6"/>
+    <polygon points="90,12 95,6 97,14" fill="#f2a6a6"/>
+    <circle cx="86" cy="24" r="12" fill="#f5b971"/>
+    <ellipse cx="91" cy="28" rx="6.5" ry="4.8" fill="#fbe3c4"/>
+    <path d="M78 21.5 Q80.3 23.5 82.5 21.5" stroke="#7a4a2e" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <path d="M87.5 21.5 Q89.8 23.5 92 21.5" stroke="#7a4a2e" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <polygon points="90.6,25.8 94,25.8 92.3,28.3" fill="#e88a8a"/>
+    <path d="M92.3 28.3 Q90.5 30.8 88 30" stroke="#7a4a2e" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <g stroke="#ffffff" stroke-width=".9" stroke-linecap="round" opacity=".85">
+      <line x1="96" y1="26" x2="108" y2="23"/>
+      <line x1="96.5" y1="27.5" x2="109" y2="27"/>
+      <line x1="96" y1="29" x2="108" y2="31"/>
+    </g>
     <circle cx="12" cy="46" r="1.6" fill="#fff" opacity=".8"/>
     <circle cx="4" cy="38" r="1.2" fill="#fff" opacity=".6"/>
     <circle cx="20" cy="52" r="1" fill="#fff" opacity=".5"/>
@@ -247,16 +263,32 @@
 </div>
 <div class="cat cat2" aria-hidden="true">
   <svg viewBox="0 0 120 60">
-    <g fill="#efe4ff">
-      <ellipse cx="55" cy="32" rx="28" ry="11"/>
-      <circle cx="88" cy="26" r="11"/>
-      <polygon points="79,20 82,6 89,16"/>
-      <polygon points="89,16 96,7 98,20"/>
-      <ellipse cx="103" cy="34" rx="10" ry="3.6"/>
-      <ellipse cx="30" cy="41" rx="10" ry="3.6"/>
+    <defs><clipPath id="body2"><ellipse cx="52" cy="33" rx="27" ry="12"/></clipPath></defs>
+    <path d="M27 28 Q14 22 8 7" stroke="#b9b6c9" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <ellipse cx="94" cy="40" rx="10" ry="3.4" fill="#b9b6c9"/>
+    <ellipse cx="28" cy="43" rx="9" ry="3.4" fill="#8e8aa5"/>
+    <ellipse cx="52" cy="33" rx="27" ry="12" fill="#b9b6c9"/>
+    <g clip-path="url(#body2)">
+      <ellipse cx="52" cy="41" rx="18" ry="6" fill="#e2e0ec"/>
+      <ellipse cx="40" cy="26" rx="3" ry="8" fill="#8e8aa5"/>
+      <ellipse cx="51" cy="25" rx="3" ry="9" fill="#8e8aa5"/>
+      <ellipse cx="62" cy="26" rx="3" ry="8" fill="#8e8aa5"/>
     </g>
-    <path d="M29 28 Q14 22 10 8" stroke="#efe4ff" stroke-width="5" stroke-linecap="round" fill="none"/>
-    <path d="M84 25 Q87 28 90 25" stroke="#5a4a7e" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+    <polygon points="76,17 79,3 87,13" fill="#b9b6c9"/>
+    <polygon points="88,13 96,4 99,17" fill="#b9b6c9"/>
+    <polygon points="78,14 80,6 85,12" fill="#e8b4c0"/>
+    <polygon points="90,12 95,6 97,14" fill="#e8b4c0"/>
+    <circle cx="86" cy="24" r="12" fill="#b9b6c9"/>
+    <ellipse cx="91" cy="28" rx="6.5" ry="4.8" fill="#e2e0ec"/>
+    <path d="M78 21.5 Q80.3 23.5 82.5 21.5" stroke="#4a4560" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <path d="M87.5 21.5 Q89.8 23.5 92 21.5" stroke="#4a4560" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <polygon points="90.6,25.8 94,25.8 92.3,28.3" fill="#d98ea3"/>
+    <path d="M92.3 28.3 Q90.5 30.8 88 30" stroke="#4a4560" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <g stroke="#ffffff" stroke-width=".9" stroke-linecap="round" opacity=".85">
+      <line x1="96" y1="26" x2="108" y2="23"/>
+      <line x1="96.5" y1="27.5" x2="109" y2="27"/>
+      <line x1="96" y1="29" x2="108" y2="31"/>
+    </g>
     <circle cx="12" cy="46" r="1.6" fill="#fff" opacity=".8"/>
     <circle cx="4" cy="38" r="1.2" fill="#fff" opacity=".6"/>
     <circle cx="20" cy="52" r="1" fill="#fff" opacity=".5"/>
@@ -264,16 +296,32 @@
 </div>
 <div class="cat cat3" aria-hidden="true">
   <svg viewBox="0 0 120 60">
-    <g fill="#efe4ff">
-      <ellipse cx="55" cy="32" rx="28" ry="11"/>
-      <circle cx="88" cy="26" r="11"/>
-      <polygon points="79,20 82,6 89,16"/>
-      <polygon points="89,16 96,7 98,20"/>
-      <ellipse cx="103" cy="34" rx="10" ry="3.6"/>
-      <ellipse cx="30" cy="41" rx="10" ry="3.6"/>
+    <defs><clipPath id="body3"><ellipse cx="52" cy="33" rx="27" ry="12"/></clipPath></defs>
+    <path d="M27 28 Q14 22 8 7" stroke="#f2e8d9" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <ellipse cx="94" cy="40" rx="10" ry="3.4" fill="#f2e8d9"/>
+    <ellipse cx="28" cy="43" rx="9" ry="3.4" fill="#d9c4a3"/>
+    <ellipse cx="52" cy="33" rx="27" ry="12" fill="#f2e8d9"/>
+    <g clip-path="url(#body3)">
+      <ellipse cx="52" cy="41" rx="18" ry="6" fill="#fdf8ee"/>
+      <ellipse cx="40" cy="26" rx="3" ry="8" fill="#d9c4a3"/>
+      <ellipse cx="51" cy="25" rx="3" ry="9" fill="#d9c4a3"/>
+      <ellipse cx="62" cy="26" rx="3" ry="8" fill="#d9c4a3"/>
     </g>
-    <path d="M29 28 Q14 22 10 8" stroke="#efe4ff" stroke-width="5" stroke-linecap="round" fill="none"/>
-    <path d="M84 25 Q87 28 90 25" stroke="#5a4a7e" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+    <polygon points="76,17 79,3 87,13" fill="#f2e8d9"/>
+    <polygon points="88,13 96,4 99,17" fill="#f2e8d9"/>
+    <polygon points="78,14 80,6 85,12" fill="#f0b5b5"/>
+    <polygon points="90,12 95,6 97,14" fill="#f0b5b5"/>
+    <circle cx="86" cy="24" r="12" fill="#f2e8d9"/>
+    <ellipse cx="91" cy="28" rx="6.5" ry="4.8" fill="#fdf8ee"/>
+    <path d="M78 21.5 Q80.3 23.5 82.5 21.5" stroke="#6b5744" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <path d="M87.5 21.5 Q89.8 23.5 92 21.5" stroke="#6b5744" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+    <polygon points="90.6,25.8 94,25.8 92.3,28.3" fill="#e39a9a"/>
+    <path d="M92.3 28.3 Q90.5 30.8 88 30" stroke="#6b5744" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+    <g stroke="#ffffff" stroke-width=".9" stroke-linecap="round" opacity=".85">
+      <line x1="96" y1="26" x2="108" y2="23"/>
+      <line x1="96.5" y1="27.5" x2="109" y2="27"/>
+      <line x1="96" y1="29" x2="108" y2="31"/>
+    </g>
     <circle cx="12" cy="46" r="1.6" fill="#fff" opacity=".8"/>
     <circle cx="4" cy="38" r="1.2" fill="#fff" opacity=".6"/>
     <circle cx="20" cy="52" r="1" fill="#fff" opacity=".5"/>
