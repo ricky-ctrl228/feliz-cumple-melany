@@ -115,6 +115,34 @@
   .card.big .card-face { display: none; }
   .gem { filter: drop-shadow(0 0 6px rgba(155,89,182,.55)); }
 
+  /* Gatitos voladores en el espacio */
+  .cat {
+    position: fixed; left: 0; z-index: 0;
+    pointer-events: none;
+    animation: flyX linear infinite;
+  }
+  .cat svg {
+    display: block;
+    filter: drop-shadow(0 0 8px rgba(220,200,255,.45));
+    animation: flyBob ease-in-out infinite;
+  }
+  .cat1 { top: 12%; opacity: .75; animation-duration: 34s; animation-delay: -12s; }
+  .cat1 svg { width: 72px; animation-duration: 3.4s; }
+  .cat2 { top: 32%; opacity: .45; animation-duration: 52s; animation-delay: -35s; animation-name: flyXrev; }
+  .cat2 svg { width: 44px; animation-duration: 2.9s; animation-name: flyBobRev; }
+  .cat3 { top: 66%; opacity: .6; animation-duration: 27s; animation-delay: -5s; }
+  .cat3 svg { width: 56px; animation-duration: 3.8s; }
+  @keyframes flyX    { from { transform: translateX(-15vw) } to { transform: translateX(110vw) } }
+  @keyframes flyXrev { from { transform: translateX(110vw) } to { transform: translateX(-15vw) } }
+  @keyframes flyBob {
+    0%, 100% { transform: translateY(0) rotate(-4deg); }
+    50%      { transform: translateY(-14px) rotate(4deg); }
+  }
+  @keyframes flyBobRev {
+    0%, 100% { transform: scaleX(-1) translateY(0) rotate(4deg); }
+    50%      { transform: scaleX(-1) translateY(-14px) rotate(-4deg); }
+  }
+
   .card.big {
     position: fixed; left: 50%; top: 50%; right: auto; bottom: auto;
     width: min(88vw, 380px); height: auto; max-height: 82vh;
@@ -199,6 +227,58 @@
 <body>
 
 <canvas id="stars"></canvas>
+
+<div class="cat cat1" aria-hidden="true">
+  <svg viewBox="0 0 120 60">
+    <g fill="#efe4ff">
+      <ellipse cx="55" cy="32" rx="28" ry="11"/>
+      <circle cx="88" cy="26" r="11"/>
+      <polygon points="79,20 82,6 89,16"/>
+      <polygon points="89,16 96,7 98,20"/>
+      <ellipse cx="103" cy="34" rx="10" ry="3.6"/>
+      <ellipse cx="30" cy="41" rx="10" ry="3.6"/>
+    </g>
+    <path d="M29 28 Q14 22 10 8" stroke="#efe4ff" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <path d="M84 25 Q87 28 90 25" stroke="#5a4a7e" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+    <circle cx="12" cy="46" r="1.6" fill="#fff" opacity=".8"/>
+    <circle cx="4" cy="38" r="1.2" fill="#fff" opacity=".6"/>
+    <circle cx="20" cy="52" r="1" fill="#fff" opacity=".5"/>
+  </svg>
+</div>
+<div class="cat cat2" aria-hidden="true">
+  <svg viewBox="0 0 120 60">
+    <g fill="#efe4ff">
+      <ellipse cx="55" cy="32" rx="28" ry="11"/>
+      <circle cx="88" cy="26" r="11"/>
+      <polygon points="79,20 82,6 89,16"/>
+      <polygon points="89,16 96,7 98,20"/>
+      <ellipse cx="103" cy="34" rx="10" ry="3.6"/>
+      <ellipse cx="30" cy="41" rx="10" ry="3.6"/>
+    </g>
+    <path d="M29 28 Q14 22 10 8" stroke="#efe4ff" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <path d="M84 25 Q87 28 90 25" stroke="#5a4a7e" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+    <circle cx="12" cy="46" r="1.6" fill="#fff" opacity=".8"/>
+    <circle cx="4" cy="38" r="1.2" fill="#fff" opacity=".6"/>
+    <circle cx="20" cy="52" r="1" fill="#fff" opacity=".5"/>
+  </svg>
+</div>
+<div class="cat cat3" aria-hidden="true">
+  <svg viewBox="0 0 120 60">
+    <g fill="#efe4ff">
+      <ellipse cx="55" cy="32" rx="28" ry="11"/>
+      <circle cx="88" cy="26" r="11"/>
+      <polygon points="79,20 82,6 89,16"/>
+      <polygon points="89,16 96,7 98,20"/>
+      <ellipse cx="103" cy="34" rx="10" ry="3.6"/>
+      <ellipse cx="30" cy="41" rx="10" ry="3.6"/>
+    </g>
+    <path d="M29 28 Q14 22 10 8" stroke="#efe4ff" stroke-width="5" stroke-linecap="round" fill="none"/>
+    <path d="M84 25 Q87 28 90 25" stroke="#5a4a7e" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+    <circle cx="12" cy="46" r="1.6" fill="#fff" opacity=".8"/>
+    <circle cx="4" cy="38" r="1.2" fill="#fff" opacity=".6"/>
+    <circle cx="20" cy="52" r="1" fill="#fff" opacity=".5"/>
+  </svg>
+</div>
 
 <div class="envelope" id="envelope">
   <div class="back"></div>
